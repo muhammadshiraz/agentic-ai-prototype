@@ -1,4 +1,3 @@
-```markdown
 # 🤖 Agentic AI Prototype
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -6,6 +5,9 @@
 [![React 18](https://img.shields.io/badge/react-18+-61DAFB.svg)](https://reactjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg)](https://fastapi.tiangolo.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-API-412991.svg)](https://openai.com/)
+[![Pinecone](https://img.shields.io/badge/Pinecone-Vector-00B4D8.svg)](https://www.pinecone.io/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://github.com/muhammadshiraz)
 
 > 🚀 **Build autonomous AI agents with RAG pipelines, MCP Servers, and OpenAI function/tool calling.**
 
@@ -25,19 +27,6 @@ This project demonstrates a fully functional **Agentic AI** system that combines
 
 ---
 
-## 📸 Screenshots
-
-### 💬 Chat Interface
-*Coming soon...*
-
-### 📊 Agent Dashboard
-*Coming soon...*
-
-### 📈 Monitoring Panel
-*Coming soon...*
-
----
-
 ## 🛠️ Tech Stack
 
 ### Backend
@@ -46,7 +35,7 @@ This project demonstrates a fully functional **Agentic AI** system that combines
 | Python 3.11+ | Core language |
 | FastAPI | REST API framework |
 | OpenAI API | LLM and function calling |
-| Pinecone / Weaviate | Vector database for RAG |
+| Pinecone | Vector database for RAG |
 | Uvicorn | ASGI server |
 
 ### Frontend
@@ -57,6 +46,7 @@ This project demonstrates a fully functional **Agentic AI** system that combines
 | Tailwind CSS | Styling |
 | Vite | Build tool |
 | Axios | HTTP client |
+| LocalStorage | Chat history persistence |
 
 ### Infrastructure
 | Technology | Purpose |
@@ -76,6 +66,7 @@ agentic-ai-prototype/
 │   ├── app.py              # FastAPI server
 │   ├── requirements.txt    # Python dependencies
 │   ├── .env.example        # Environment variables
+│   ├── upload_documents.py # Pinecone upload script
 │   └── Dockerfile          # Backend container
 ├── frontend/
 │   ├── src/
@@ -99,12 +90,12 @@ agentic-ai-prototype/
 - Python 3.11+
 - Node.js 18+
 - OpenAI API Key
-- (Optional) Pinecone API Key
+- (Optional) Pinecone API Key for real RAG
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/muhammadshiraz/agentic-ai-prototype.git
+git clone https://github.com/your-username/agentic-ai-prototype.git
 cd agentic-ai-prototype
 ```
 
@@ -112,8 +103,8 @@ cd agentic-ai-prototype
 
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python -m venv venv311
+source venv311/bin/activate  # On Windows: venv311\Scripts\activate
 pip install -r requirements.txt
 cp .env.example .env
 # Edit .env and add your OPENAI_API_KEY
@@ -196,14 +187,103 @@ OPENAI_API_KEY=your_openai_api_key_here
 PINECONE_API_KEY=your_pinecone_api_key_here
 PINECONE_ENVIRONMENT=your_pinecone_environment
 PINECONE_INDEX=agentic-ai
-WEAVIATE_URL=your_weaviate_url
 ```
+
+---
+
+## 📤 Upload Documents to Pinecone
+
+```bash
+cd backend
+python upload_documents.py
+```
+
+This will upload sample documents about:
+- Agentic AI
+- RAG (Retrieval-Augmented Generation)
+- MCP (Model Context Protocol)
+- Urban Resilience
+- Digital Twins
+
+---
+
+## 🌐 Deployment
+
+### Deploy Backend to Render
+
+1. Go to https://render.com
+2. Click **"New +"** → **"Web Service"**
+3. Connect your GitHub repository
+4. Set:
+   - Name: `agentic-ai-backend`
+   - Environment: `Python`
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `uvicorn app:app --host 0.0.0.0 --port 8000`
+5. Add environment variables:
+   - `OPENAI_API_KEY`
+   - `PINECONE_API_KEY` (optional)
+   - `PINECONE_ENVIRONMENT` (optional)
+   - `PINECONE_INDEX` (optional)
+6. Click **"Create Web Service"**
+
+### Deploy Frontend to Vercel
+
+1. Go to https://vercel.com
+2. Click **"Add New..."** → **"Project"**
+3. Import your GitHub repository
+4. Framework Preset: `Vite`
+5. Build Command: `npm run build`
+6. Output Directory: `dist`
+7. Add environment variable:
+   - `VITE_API_URL` = `https://your-backend-url.com/api`
+8. Click **"Deploy"**
+
+---
+
+## 📸 Features
+
+✅ **Agentic AI** — Autonomous decision-making and workflow execution
+✅ **RAG Pipelines** — Contextual document retrieval for accurate responses
+✅ **MCP Servers** — Persistent memory for stateful interactions
+✅ **OpenAI Function Calling** — Real-world tool execution
+✅ **Full Stack** — Python FastAPI + React TypeScript
+✅ **Modern Stack** — Tailwind CSS, Vite, Docker
+✅ **Production Ready** — Complete error handling, logging, monitoring
+✅ **Containerized** — Docker and Docker Compose support
+✅ **Chat History Persistence** — LocalStorage for conversation history
+✅ **Clear History Button** — Reset conversation anytime
+
+---
+
+## 🚧 Roadmap
+
+- [ ] Add WebSocket support for real-time streaming
+- [ ] Add authentication and user sessions
+- [ ] Add more tools (Slack, Notion, GitHub, etc.)
+- [ ] Add agent memory persistence to database
+- [ ] Add CI/CD pipeline with GitHub Actions
+
+---
+
+## 📊 Project Status
+
+| Component | Status |
+|-----------|--------|
+| Backend API | ✅ Complete |
+| Frontend UI | ✅ Complete |
+| RAG Pipeline | ✅ Complete |
+| MCP Server | ✅ Complete |
+| OpenAI Integration | ✅ Complete |
+| Docker Support | ✅ Complete |
+| Documentation | ✅ Complete |
+| Deployment Ready | ✅ Yes |
+| Chat History | ✅ Persisted |
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first.
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -239,53 +319,7 @@ If you found this project useful, please consider giving it a ⭐ on GitHub!
 - [FastAPI](https://fastapi.tiangolo.com) for the backend framework
 - [React](https://reactjs.org) for the frontend UI
 - [Tailwind CSS](https://tailwindcss.com) for the styling
-- [Vercel AI SDK](https://sdk.vercel.ai) for AI streaming
-
----
-
-## 🏆 Key Features Demonstrated
-
-✅ **Agentic AI:** Autonomous decision-making and workflow execution
-✅ **RAG Pipelines:** Contextual document retrieval for accurate responses
-✅ **MCP Servers:** Persistent memory for stateful interactions
-✅ **OpenAI Function Calling:** Real-world tool execution
-✅ **Full Stack:** Python FastAPI + React TypeScript
-✅ **Modern Stack:** Tailwind CSS, Vite, Docker
-✅ **Production Ready:** Complete error handling, logging, monitoring
-✅ **Containerized:** Docker and Docker Compose support
-
----
-
-## 📊 Project Status
-
-| Component | Status |
-|-----------|--------|
-| Backend API | ✅ Complete |
-| Frontend UI | ✅ Complete |
-| RAG Pipeline | ✅ Complete |
-| MCP Server | ✅ Complete |
-| OpenAI Integration | ✅ Complete |
-| Docker Support | ✅ Complete |
-| Documentation | ✅ Complete |
-| Deployment Ready | ✅ Yes |
-
----
-
-## 🚧 Roadmap
-
-- [ ] Add actual Pinecone/Weaviate vector DB integration
-- [ ] Add WebSocket support for real-time streaming
-- [ ] Add authentication and user sessions
-- [ ] Add more tools (Slack, Notion, GitHub, etc.)
-- [ ] Add agent memory persistence to database
-- [ ] Add monitoring dashboard with real metrics
-- [ ] Add CI/CD pipeline with GitHub Actions
-
----
-
-## 📞 Support
-
-For support, please open an issue in the GitHub repository or contact me directly.
+- [Pinecone](https://www.pinecone.io) for the vector database
 
 ---
 
