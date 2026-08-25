@@ -9,8 +9,6 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://github.com/muhammadshiraz)
 
-<br>
-
 > 🚀 **Build autonomous AI agents with RAG pipelines, MCP Servers, and OpenAI function/tool calling.**
 
 ---
@@ -226,7 +224,7 @@ This will upload sample documents about:
    - `PINECONE_API_KEY` (optional)
    - `PINECONE_ENVIRONMENT` (optional)
    - `PINECONE_INDEX` (optional)
-6. Click **"Create Web Service"**
+6. Click **"Create Web Service"`
 
 ### Deploy Frontend to Vercel
 
@@ -244,16 +242,16 @@ This will upload sample documents about:
 
 ## 📸 Features
 
-✅ **Agentic AI** — Autonomous decision-making and workflow execution
-✅ **RAG Pipelines** — Contextual document retrieval for accurate responses
-✅ **MCP Servers** — Persistent memory for stateful interactions
-✅ **OpenAI Function Calling** — Real-world tool execution
-✅ **Full Stack** — Python FastAPI + React TypeScript
-✅ **Modern Stack** — Tailwind CSS, Vite, Docker
-✅ **Production Ready** — Complete error handling, logging, monitoring
-✅ **Containerized** — Docker and Docker Compose support
-✅ **Chat History Persistence** — LocalStorage for conversation history
-✅ **Clear History Button** — Reset conversation anytime
+- ✅ **Agentic AI** — Autonomous decision-making and workflow execution
+- ✅ **RAG Pipelines** — Contextual document retrieval for accurate responses
+- ✅ **MCP Servers** — Persistent memory for stateful interactions
+- ✅ **OpenAI Function Calling** — Real-world tool execution
+- ✅ **Full Stack** — Python FastAPI + React TypeScript
+- ✅ **Modern Stack** — Tailwind CSS, Vite, Docker
+- ✅ **Production Ready** — Complete error handling, logging, monitoring
+- ✅ **Containerized** — Docker and Docker Compose support
+- ✅ **Chat History Persistence** — LocalStorage for conversation history
+- ✅ **Clear History Button** — Reset conversation anytime
 
 ---
 
