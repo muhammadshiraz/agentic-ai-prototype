@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = 'https://agentic-ai-prototype-production-1c87.up.railway.app/api';
 
 export default function ChatInterface({ agentStatus, setAgentStatus }) {
   const [messages, setMessages] = useState([

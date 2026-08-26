@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: 'https://agentic-ai-prototype-production-1c87.up.railway.app',
         changeOrigin: true
       }
     }
