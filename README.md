@@ -6,16 +6,16 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg)](https://fastapi.tiangolo.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-API-412991.svg)](https://openai.com/)
 [![Pinecone](https://img.shields.io/badge/Pinecone-Vector-00B4D8.svg)](https://www.pinecone.io/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
-[![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://github.com/muhammadshiraz)
+[![Deployed on Railway](https://img.shields.io/badge/Deployed%20on-Railway-0B0D0E.svg)](https://railway.app)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000.svg)](https://vercel.com)
 
-> 🚀 **Build autonomous AI agents with RAG pipelines, MCP Servers, and OpenAI function/tool calling.**
+> 🚀 **Live Demo:** [Frontend](https://agentic-ai-prototype.vercel.app) | [Backend API](https://agentic-ai-prototype-production-1c87.up.railway.app) | [API Docs](https://agentic-ai-prototype-production-1c87.up.railway.app/docs)
 
 ---
 
 ## 🎯 Overview
 
-This project demonstrates a fully functional **Agentic AI** system that combines:
+This project is a fully functional **Agentic AI** system that combines:
 
 | Component | Description |
 |-----------|-------------|
@@ -24,6 +24,73 @@ This project demonstrates a fully functional **Agentic AI** system that combines
 | **🧠 MCP** | Model Context Protocol Servers for persistent agent memory |
 | **⚡ OpenAI** | Function/Tool calling for real-world actions |
 | **🎨 UI** | Modern React + TypeScript interface for agent interaction |
+
+**Live Links:**
+- **Frontend UI:** [https://agentic-ai-prototype.vercel.app](https://agentic-ai-prototype.vercel.app)
+- **Backend API:** [https://agentic-ai-prototype-production-1c87.up.railway.app](https://agentic-ai-prototype-production-1c87.up.railway.app)
+- **API Documentation (Swagger):** [https://agentic-ai-prototype-production-1c87.up.railway.app/docs](https://agentic-ai-prototype-production-1c87.up.railway.app/docs)
+
+---
+
+## 🧪 How to Use — Sample Questions
+
+Once you open the frontend, you can ask the AI agent these questions to test its capabilities:
+
+### 🔍 Test RAG (Retrieval-Augmented Generation)
+
+The AI has been pre-loaded with sample documents about:
+- Agentic AI
+- RAG
+- MCP
+- Urban Resilience
+- Digital Twins
+
+Ask:
+
+| **Question** | **Expected Response** |
+|---|---|
+| `What is Agentic AI?` | The AI will retrieve the document about Agentic AI and answer based on it. |
+| `What is RAG?` | The AI will retrieve the RAG document and explain it. |
+| `What is MCP?` | The AI will retrieve the MCP document and explain it. |
+| `What is urban resilience?` | The AI will retrieve the urban resilience document. |
+| `What are digital twins?` | The AI will retrieve the digital twins document. |
+
+### 🧠 Test MCP Memory
+
+You can store and retrieve information in the agent's persistent memory:
+
+| **Question** | **Expected Behavior** |
+|---|---|
+| `Save to memory: my_favorite_color = blue` | The AI will save `my_favorite_color = blue` to its memory. |
+| `What is my favorite color?` | The AI will retrieve `blue` from memory and respond. |
+| `Save to memory: user_name = Muhammad` | The AI will store your name. |
+| `What is my name?` | The AI will recall your name. |
+
+### ⚡ Test OpenAI Function/Tool Calling
+
+The AI can perform real-world actions:
+
+| **Question** | **Expected Behavior** |
+|---|---|
+| `Search the web for Python programming` | The AI will call the `search_web` tool and show simulated results. |
+| `Analyze this data: {"sales": 1000, "profit": 200}` | The AI will call the `analyze_data` tool. |
+| `Send an email to test@example.com with subject "Hello" and body "This is a test"` | The AI will call the `send_email` tool (simulated). |
+
+### 🤖 Test Agentic Workflow
+
+You can run a multi-step autonomous workflow:
+
+| **Question** | **Expected Behavior** |
+|---|---|
+| `Run workflow for task: plan a project` | The AI will execute a predefined workflow (analyze → decide → execute). |
+
+---
+
+## 🖥️ Screenshots
+
+- **Chat Interface:** ![Chat Interface](screenshots/chat.png)
+- **Agent Dashboard:** ![Agent Dashboard](screenshots/dashboard.png)
+- **Monitoring Panel:** ![Monitoring Panel](screenshots/monitoring.png)
 
 ---
 
@@ -52,9 +119,8 @@ This project demonstrates a fully functional **Agentic AI** system that combines
 | Technology | Purpose |
 |------------|---------|
 | Docker | Containerization |
-| Docker Compose | Multi-container orchestration |
+| Railway | Backend deployment |
 | Vercel | Frontend deployment |
-| Render / Railway | Backend deployment |
 
 ---
 
@@ -83,7 +149,7 @@ agentic-ai-prototype/
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Local Development)
 
 ### Prerequisites
 
@@ -95,7 +161,7 @@ agentic-ai-prototype/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/agentic-ai-prototype.git
+git clone https://github.com/muhammadshiraz/agentic-ai-prototype.git
 cd agentic-ai-prototype
 ```
 
@@ -127,22 +193,6 @@ npm run dev
 
 ---
 
-## 🐳 Docker Setup
-
-```bash
-# Build and run with Docker Compose
-docker-compose up --build
-
-# Or run individually
-docker build -t agentic-ai-backend ./backend
-docker run -p 8000:8000 --env-file ./backend/.env agentic-ai-backend
-
-docker build -t agentic-ai-frontend ./frontend
-docker run -p 5173:5173 agentic-ai-frontend
-```
-
----
-
 ## 📡 API Endpoints
 
 | Method | Endpoint | Description |
@@ -157,90 +207,30 @@ docker run -p 5173:5173 agentic-ai-frontend
 
 ---
 
-## 🧠 Agent Architecture
-
-```
-User Input
-    ↓
-RAG Retrieval (Vector DB)
-    ↓
-Context Enrichment
-    ↓
-MCP Memory (Persistent)
-    ↓
-Agent Reasoning (LLM)
-    ↓
-Tool Calling (OpenAI)
-    ↓
-Response
-```
-
----
-
-## 🔧 Environment Variables
-
-```env
-# Required
-OPENAI_API_KEY=your_openai_api_key_here
-
-# Optional (for RAG)
-PINECONE_API_KEY=your_pinecone_api_key_here
-PINECONE_ENVIRONMENT=your_pinecone_environment
-PINECONE_INDEX=agentic-ai
-```
-
----
-
-## 📤 Upload Documents to Pinecone
-
-```bash
-cd backend
-python upload_documents.py
-```
-
-This will upload sample documents about:
-- Agentic AI
-- RAG (Retrieval-Augmented Generation)
-- MCP (Model Context Protocol)
-- Urban Resilience
-- Digital Twins
-
----
-
 ## 🌐 Deployment
 
-### Deploy Backend to Render
+### Backend (Railway)
 
-1. Go to https://render.com
-2. Click **"New +"** → **"Web Service"**
-3. Connect your GitHub repository
-4. Set:
-   - Name: `agentic-ai-backend`
-   - Environment: `Python`
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `uvicorn app:app --host 0.0.0.0 --port 8000`
-5. Add environment variables:
+1. Sign up at [Railway.app](https://railway.app) (free, no credit card required)
+2. Deploy from GitHub repository
+3. Set Root Directory: `backend/`
+4. Add environment variables:
    - `OPENAI_API_KEY`
    - `PINECONE_API_KEY` (optional)
    - `PINECONE_ENVIRONMENT` (optional)
    - `PINECONE_INDEX` (optional)
-6. Click **"Create Web Service"`
 
-### Deploy Frontend to Vercel
+### Frontend (Vercel)
 
-1. Go to https://vercel.com
-2. Click **"Add New..."** → **"Project"**
-3. Import your GitHub repository
+1. Sign up at [Vercel.com](https://vercel.com) (free)
+2. Import your GitHub repository
+3. Set Root Directory: `frontend/`
 4. Framework Preset: `Vite`
-5. Build Command: `npm run build`
-6. Output Directory: `dist`
-7. Add environment variable:
-   - `VITE_API_URL` = `https://your-backend-url.com/api`
-8. Click **"Deploy"**
+5. Add environment variable: `VITE_API_URL` = your Railway backend URL + `/api`
 
 ---
 
-## 📸 Features
+## 📊 Features
 
 - ✅ **Agentic AI** — Autonomous decision-making and workflow execution
 - ✅ **RAG Pipelines** — Contextual document retrieval for accurate responses
@@ -262,22 +252,6 @@ This will upload sample documents about:
 - [ ] Add more tools (Slack, Notion, GitHub, etc.)
 - [ ] Add agent memory persistence to database
 - [ ] Add CI/CD pipeline with GitHub Actions
-
----
-
-## 📊 Project Status
-
-| Component | Status |
-|-----------|--------|
-| Backend API | ✅ Complete |
-| Frontend UI | ✅ Complete |
-| RAG Pipeline | ✅ Complete |
-| MCP Server | ✅ Complete |
-| OpenAI Integration | ✅ Complete |
-| Docker Support | ✅ Complete |
-| Documentation | ✅ Complete |
-| Deployment Ready | ✅ Yes |
-| Chat History | ✅ Persisted |
 
 ---
 
@@ -320,6 +294,8 @@ If you found this project useful, please consider giving it a ⭐ on GitHub!
 - [React](https://reactjs.org) for the frontend UI
 - [Tailwind CSS](https://tailwindcss.com) for the styling
 - [Pinecone](https://www.pinecone.io) for the vector database
+- [Railway](https://railway.app) for backend hosting
+- [Vercel](https://vercel.com) for frontend hosting
 
 ---
 
