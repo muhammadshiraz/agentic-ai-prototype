@@ -240,7 +240,7 @@ npm run dev
 - ✅ **OpenAI Function Calling** — Real-world tool execution
 - ✅ **Full Stack** — Python FastAPI + React TypeScript
 - ✅ **Modern Stack** — Tailwind CSS, Vite, Docker
-- ✅ **Production Ready** — Complete error handling, logging, monitoring
+- ✅ **Engineering Prototype** — Demonstrates AI workflows, retrieval, tool calling, and full-stack integration; production hardening remains on the roadmap.
 - ✅ **Containerized** — Docker and Docker Compose support
 - ✅ **Chat History Persistence** — LocalStorage for conversation history
 - ✅ **Clear History Button** — Reset conversation anytime
