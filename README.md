@@ -8,6 +8,8 @@
 [![Pinecone](https://img.shields.io/badge/Pinecone-Vector-00B4D8.svg)](https://www.pinecone.io/)
 [![Deployed on Railway](https://img.shields.io/badge/Deployed%20on-Railway-0B0D0E.svg)](https://railway.app)
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000.svg)](https://vercel.com)
+ 
+![Agentic AI Prototype — Full-Stack AI Engineering](./screenshots/agentic-ai-cover.png)
 
 > 🚀 **Live Demo:** [Frontend](https://agentic-ai-prototype.vercel.app) | [Backend API](https://agentic-ai-prototype-production-1c87.up.railway.app) | [API Docs](https://agentic-ai-prototype-production-1c87.up.railway.app/docs)
 
