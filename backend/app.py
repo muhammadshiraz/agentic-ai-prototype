@@ -23,6 +23,7 @@ app.add_middleware(
 
 # ============ CONFIG ============
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6-terra")
 
 if not OPENAI_API_KEY:
     print("❌ ERROR: OPENAI_API_KEY not found in .env file!")
@@ -169,9 +170,10 @@ Memory: {memory_context}
 You can use tools to help users. When a user asks for something that requires action, call the appropriate function.
 """
         
-        # 4. Call OpenAI with function calling (OLD API)
+        # 4. Call OpenAI with function calling.
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=OPENAI_MODEL,
+            reasoning_effort="none",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": request.message}
@@ -193,7 +195,8 @@ You can use tools to help users. When a user asks for something that requires ac
             
             # Get final response from OpenAI with tool result
             final_response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model=OPENAI_MODEL,
+                reasoning_effort="none",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": request.message},

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-const API_BASE = 'https://agentic-ai-prototype-production-1c87.up.railway.app/api';
+import { API_BASE } from '../api';
 
 export default function AgentDashboard() {
   const [workflowInput, setWorkflowInput] = useState('{"task": "analyze data"}');

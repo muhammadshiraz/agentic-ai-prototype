@@ -1,7 +1,8 @@
-fastapi==0.104.1
+fastapi==0.119.1
 uvicorn[standard]==0.24.0
 openai==0.28
 python-dotenv==1.0.0
-pydantic==2.5.0
+# Includes prebuilt pydantic-core wheels for Python 3.13 and 3.14.
+pydantic==2.12.5
 httpx==0.25.1
 pinecone-client==2.2.4

@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-
-const API_BASE = 'https://agentic-ai-prototype-production-1c87.up.railway.app/api';
+import { API_BASE, getApiError } from '../api';
 
 export default function ChatInterface({ agentStatus, setAgentStatus }) {
   const [messages, setMessages] = useState([
@@ -54,7 +53,7 @@ export default function ChatInterface({ agentStatus, setAgentStatus }) {
     } catch (error) {
       setMessages(prev => [...prev, {
         role: 'assistant',
-        content: '❌ Error: Unable to process your request. Please check if the backend is running.'
+        content: `❌ Error: ${getApiError(error)}`
       }]);
     } finally {
       setIsLoading(false);

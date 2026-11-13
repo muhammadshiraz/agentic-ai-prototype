@@ -179,6 +179,28 @@ cp .env.example .env
 python app.py
 ```
 
+The backend defaults to `gpt-5.6-terra`. Set `OPENAI_MODEL` in `backend/.env`
+to override it with a model that supports Chat Completions, function calling,
+and `reasoning_effort="none"`. Restart the backend after changing configuration.
+
+On Windows PowerShell, run the backend setup with:
+
+```powershell
+cd backend
+python --version
+python -m venv venv311
+.\venv311\Scripts\python.exe -m pip install -r requirements.txt
+# Create or edit .env and add your OPENAI_API_KEY.
+.\venv311\Scripts\python.exe app.py
+```
+
+The environment name `venv311` does not select Python 3.11; `python -m venv`
+uses the interpreter currently on your PATH. The dependency pins support Python
+3.13 and 3.14. If installation fails while building `pydantic-core==2.14.1` with
+a `ForwardRef._evaluate` error, use the updated `requirements.txt` above instead
+of the older `pydantic==2.5.0` pin. Pydantic selects its matching core package
+automatically.
+
 ### 3. Frontend Setup
 
 ```bash
@@ -186,6 +208,12 @@ cd frontend
 npm install
 npm run dev
 ```
+
+Local development sends `/api` requests through Vite to `http://127.0.0.1:8000`.
+For a different backend, set `VITE_API_URL` in `frontend/.env.local` to its full
+API base URL, for example `http://localhost:8000/api`, and restart Vite.
+Production builds use the hosted Railway API unless `VITE_API_URL` is set at
+build time.
 
 ### 4. Open Your Browser
 
