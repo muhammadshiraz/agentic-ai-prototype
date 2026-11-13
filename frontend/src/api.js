@@ -3,7 +3,7 @@ export const API_BASE = (
   import.meta.env.VITE_API_URL ||
   (import.meta.env.DEV
     ? '/api'
-    : 'https://agentic-ai-prototype-production-1c87.up.railway.app/api')
+    : 'https://agentic-ai-prototype-o64s.vercel.app/api')
 ).replace(/\/+$/, '');
 
 export function getApiError(error) {

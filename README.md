@@ -6,12 +6,11 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg)](https://fastapi.tiangolo.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-API-412991.svg)](https://openai.com/)
 [![Pinecone](https://img.shields.io/badge/Pinecone-Vector-00B4D8.svg)](https://www.pinecone.io/)
-[![Backend hosting: Render](https://img.shields.io/badge/Backend-Render%20Free-46E3B7.svg)](https://render.com)
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000.svg)](https://vercel.com)
  
 ![Agentic AI Prototype — Full-Stack AI Engineering](./screenshots/agentic-ai-cover.png)
 
-> 🚀 **Frontend:** [Open app](https://agentic-ai-prototype.vercel.app) | [Deploy the backend on Render](#backend-render-free)
+> 🚀 **Live Demo:** [Frontend](https://agentic-ai-prototype.vercel.app) | [Backend API](https://agentic-ai-prototype-o64s.vercel.app) | [API Docs](https://agentic-ai-prototype-o64s.vercel.app/docs)
 
 ---
 
@@ -29,8 +28,8 @@ This project is a fully functional **Agentic AI** system that combines:
 
 **Live Links:**
 - **Frontend UI:** [https://agentic-ai-prototype.vercel.app](https://agentic-ai-prototype.vercel.app)
-- **Backend API:** Use the public URL assigned to your Render service after deployment.
-- **API Documentation (Swagger):** Append `/docs` to that backend URL.
+- **Backend API:** [https://agentic-ai-prototype-o64s.vercel.app](https://agentic-ai-prototype-o64s.vercel.app)
+- **API Documentation (Swagger):** [https://agentic-ai-prototype-o64s.vercel.app/docs](https://agentic-ai-prototype-o64s.vercel.app/docs)
 
 ---
 
@@ -121,8 +120,7 @@ You can run a multi-step autonomous workflow:
 | Technology | Purpose |
 |------------|---------|
 | Docker | Containerization |
-| Render Free | Backend deployment |
-| Vercel | Frontend deployment |
+| Vercel Hobby | Frontend and FastAPI backend deployment |
 
 ---
 
@@ -146,7 +144,6 @@ agentic-ai-prototype/
 │   ├── vite.config.js      # Vite config
 │   └── Dockerfile          # Frontend container
 ├── docker-compose.yml      # Multi-container setup
-├── render.yaml             # Free Render backend deployment
 └── README.md               # This file
 ```
 
@@ -213,8 +210,10 @@ npm run dev
 Local development sends `/api` requests through Vite to `http://127.0.0.1:8000`.
 For a different backend, set `VITE_API_URL` in `frontend/.env.local` to its full
 API base URL, for example `http://localhost:8000/api`, and restart Vite.
-For production, set `VITE_API_URL` to your Render service URL plus `/api` before
-building. This overrides the legacy Railway fallback in the frontend.
+Production builds default to `https://agentic-ai-prototype-o64s.vercel.app/api`.
+Set `VITE_API_URL` before building to use a different backend. An existing
+Vercel environment variable overrides this default and must be updated if it
+still points to a retired backend.
 
 ### 4. Open Your Browser
 
@@ -240,39 +239,31 @@ building. This overrides the legacy Railway fallback in the frontend.
 
 ## 🌐 Deployment
 
-### Backend (Render Free)
+### Backend (Vercel Hobby)
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/muhammadshiraz/agentic-ai-prototype)
+The frontend and backend use two Vercel projects connected to the same GitHub
+repository, with different root directories. See Vercel's
+[FastAPI](https://vercel.com/docs/frameworks/backend/fastapi) and
+[monorepo](https://vercel.com/docs/monorepos) documentation.
 
-1. Sign in to Render, open the button above, and review the Blueprint from
-   `render.yaml`. It explicitly selects the **Free** compute plan and creates
-   only the Python web service.
-2. Enter `OPENAI_API_KEY` in Render's secret input when prompted. The repository
-   contains no API key. `OPENAI_MODEL` defaults to `gpt-5.6-terra`.
-3. Deploy and copy the actual `https://...onrender.com` URL shown by Render.
-4. Open that URL to check health, then `/docs` for the API documentation.
-5. Update Vercel as described below to connect the frontend to this service.
+1. In the Vercel dashboard, select your Hobby workspace and choose
+   **Add New > Project**.
+2. Import `muhammadshiraz/agentic-ai-prototype` again as a separate backend
+   project, using branch `main` and Root Directory `backend`.
+3. Select the **FastAPI** framework preset. Keep the framework's default build,
+   install, and output settings; Vercel detects `app.py` and `requirements.txt`.
+4. Add the backend environment variables `OPENAI_API_KEY` and
+   `OPENAI_MODEL=gpt-5.6-terra`. Keep the key in Vercel's environment settings.
+5. Deploy and copy the production domain from **Settings > Domains**.
+6. Open the backend's `/` health endpoint and `/docs`. Check that
+   `openai_api_key_set` is `true`, then test `POST /api/chat` in Swagger.
+7. Configure the frontend project as described below.
 
-For manual Web Service setup, use these values:
-
-| Setting | Value |
-|---------|-------|
-| Repository | `muhammadshiraz/agentic-ai-prototype` |
-| Branch | `main` |
-| Root Directory | `backend` |
-| Runtime | Python 3 |
-| Instance Type | **Free** |
-| Build Command | `python -m pip install -r requirements.txt` |
-| Start Command | `python -m uvicorn app:app --host 0.0.0.0 --port $PORT` |
-| Health Check Path | `/` |
-| Environment | `PYTHON_VERSION=3.14.10`, `OPENAI_API_KEY`, `OPENAI_MODEL=gpt-5.6-terra` |
-
-Render's [Free web services](https://render.com/docs/free) sleep after 15 minutes
-without traffic and take about one minute to wake up on the next request.
-This app's in-memory conversation and memory store reset when the process
-restarts or sleeps. The health endpoint stays available without an OpenAI key;
-chat returns HTTP 503 until the key is configured. Hosting on the Free plan
-does not include OpenAI API usage.
+This app's in-memory conversation and memory store can reset when a serverless
+instance restarts, and are not shared across instances. The health endpoint
+stays available without an OpenAI key; chat returns HTTP 503 until the key is
+configured. The Hobby plan covers hosting within its limits; OpenAI API usage
+is billed separately.
 
 ### Frontend (Vercel)
 
@@ -280,9 +271,9 @@ does not include OpenAI API usage.
 2. Import your GitHub repository
 3. Set Root Directory: `frontend/`
 4. Framework Preset: `Vite`
-5. Set the **Production** environment variable `VITE_API_URL` to the actual
-   Render backend URL plus `/api`, for example
-   `https://YOUR-SERVICE.onrender.com/api`. Replace any old Railway value.
+5. Set the **Production** environment variable `VITE_API_URL` to
+   `https://agentic-ai-prototype-o64s.vercel.app/api`, or to your own backend's
+   production URL plus `/api` when deploying a separate copy of this project.
 6. Redeploy Vercel after updating the variable. Vite includes this value in the
    frontend at build time, so changing the variable alone does not update the
    existing deployment. Never put `OPENAI_API_KEY` in a `VITE_` variable.
@@ -353,8 +344,7 @@ If you found this project useful, please consider giving it a ⭐ on GitHub!
 - [React](https://reactjs.org) for the frontend UI
 - [Tailwind CSS](https://tailwindcss.com) for the styling
 - [Pinecone](https://www.pinecone.io) for the vector database
-- [Render](https://render.com) for backend hosting
-- [Vercel](https://vercel.com) for frontend hosting
+- [Vercel](https://vercel.com) for frontend and backend hosting
 
 ---
 
