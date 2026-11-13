@@ -26,9 +26,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5.6-terra")
 
 if not OPENAI_API_KEY:
-    print("❌ ERROR: OPENAI_API_KEY not found in .env file!")
-    print("⚠️ Please create a .env file with OPENAI_API_KEY=sk-proj-...")
-    exit(1)
+    print("OPENAI_API_KEY is not configured; chat is unavailable until it is set.")
 
 openai.api_key = OPENAI_API_KEY
 
@@ -154,6 +152,11 @@ async def root():
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
     """Chat with the Agentic AI with RAG + MCP + OpenAI."""
+    if not OPENAI_API_KEY:
+        raise HTTPException(
+            status_code=503,
+            detail="Chat is unavailable because the server's OpenAI API key is not configured.",
+        )
     try:
         # 1. RAG Retrieval
         rag_context = retrieve_context(request.message)
@@ -270,4 +273,4 @@ async def list_memory():
     return mcp_server.list_all()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000")))

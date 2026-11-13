@@ -6,12 +6,12 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg)](https://fastapi.tiangolo.com/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-API-412991.svg)](https://openai.com/)
 [![Pinecone](https://img.shields.io/badge/Pinecone-Vector-00B4D8.svg)](https://www.pinecone.io/)
-[![Deployed on Railway](https://img.shields.io/badge/Deployed%20on-Railway-0B0D0E.svg)](https://railway.app)
+[![Backend hosting: Render](https://img.shields.io/badge/Backend-Render%20Free-46E3B7.svg)](https://render.com)
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000.svg)](https://vercel.com)
  
 ![Agentic AI Prototype — Full-Stack AI Engineering](./screenshots/agentic-ai-cover.png)
 
-> 🚀 **Live Demo:** [Frontend](https://agentic-ai-prototype.vercel.app) | [Backend API](https://agentic-ai-prototype-production-1c87.up.railway.app) | [API Docs](https://agentic-ai-prototype-production-1c87.up.railway.app/docs)
+> 🚀 **Frontend:** [Open app](https://agentic-ai-prototype.vercel.app) | [Deploy the backend on Render](#backend-render-free)
 
 ---
 
@@ -29,8 +29,8 @@ This project is a fully functional **Agentic AI** system that combines:
 
 **Live Links:**
 - **Frontend UI:** [https://agentic-ai-prototype.vercel.app](https://agentic-ai-prototype.vercel.app)
-- **Backend API:** [https://agentic-ai-prototype-production-1c87.up.railway.app](https://agentic-ai-prototype-production-1c87.up.railway.app)
-- **API Documentation (Swagger):** [https://agentic-ai-prototype-production-1c87.up.railway.app/docs](https://agentic-ai-prototype-production-1c87.up.railway.app/docs)
+- **Backend API:** Use the public URL assigned to your Render service after deployment.
+- **API Documentation (Swagger):** Append `/docs` to that backend URL.
 
 ---
 
@@ -121,7 +121,7 @@ You can run a multi-step autonomous workflow:
 | Technology | Purpose |
 |------------|---------|
 | Docker | Containerization |
-| Railway | Backend deployment |
+| Render Free | Backend deployment |
 | Vercel | Frontend deployment |
 
 ---
@@ -146,6 +146,7 @@ agentic-ai-prototype/
 │   ├── vite.config.js      # Vite config
 │   └── Dockerfile          # Frontend container
 ├── docker-compose.yml      # Multi-container setup
+├── render.yaml             # Free Render backend deployment
 └── README.md               # This file
 ```
 
@@ -212,8 +213,8 @@ npm run dev
 Local development sends `/api` requests through Vite to `http://127.0.0.1:8000`.
 For a different backend, set `VITE_API_URL` in `frontend/.env.local` to its full
 API base URL, for example `http://localhost:8000/api`, and restart Vite.
-Production builds use the hosted Railway API unless `VITE_API_URL` is set at
-build time.
+For production, set `VITE_API_URL` to your Render service URL plus `/api` before
+building. This overrides the legacy Railway fallback in the frontend.
 
 ### 4. Open Your Browser
 
@@ -239,16 +240,39 @@ build time.
 
 ## 🌐 Deployment
 
-### Backend (Railway)
+### Backend (Render Free)
 
-1. Sign up at [Railway.app](https://railway.app) (free, no credit card required)
-2. Deploy from GitHub repository
-3. Set Root Directory: `backend/`
-4. Add environment variables:
-   - `OPENAI_API_KEY`
-   - `PINECONE_API_KEY` (optional)
-   - `PINECONE_ENVIRONMENT` (optional)
-   - `PINECONE_INDEX` (optional)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/muhammadshiraz/agentic-ai-prototype)
+
+1. Sign in to Render, open the button above, and review the Blueprint from
+   `render.yaml`. It explicitly selects the **Free** compute plan and creates
+   only the Python web service.
+2. Enter `OPENAI_API_KEY` in Render's secret input when prompted. The repository
+   contains no API key. `OPENAI_MODEL` defaults to `gpt-5.6-terra`.
+3. Deploy and copy the actual `https://...onrender.com` URL shown by Render.
+4. Open that URL to check health, then `/docs` for the API documentation.
+5. Update Vercel as described below to connect the frontend to this service.
+
+For manual Web Service setup, use these values:
+
+| Setting | Value |
+|---------|-------|
+| Repository | `muhammadshiraz/agentic-ai-prototype` |
+| Branch | `main` |
+| Root Directory | `backend` |
+| Runtime | Python 3 |
+| Instance Type | **Free** |
+| Build Command | `python -m pip install -r requirements.txt` |
+| Start Command | `python -m uvicorn app:app --host 0.0.0.0 --port $PORT` |
+| Health Check Path | `/` |
+| Environment | `PYTHON_VERSION=3.14.10`, `OPENAI_API_KEY`, `OPENAI_MODEL=gpt-5.6-terra` |
+
+Render's [Free web services](https://render.com/docs/free) sleep after 15 minutes
+without traffic and take about one minute to wake up on the next request.
+This app's in-memory conversation and memory store reset when the process
+restarts or sleeps. The health endpoint stays available without an OpenAI key;
+chat returns HTTP 503 until the key is configured. Hosting on the Free plan
+does not include OpenAI API usage.
 
 ### Frontend (Vercel)
 
@@ -256,7 +280,12 @@ build time.
 2. Import your GitHub repository
 3. Set Root Directory: `frontend/`
 4. Framework Preset: `Vite`
-5. Add environment variable: `VITE_API_URL` = your Railway backend URL + `/api`
+5. Set the **Production** environment variable `VITE_API_URL` to the actual
+   Render backend URL plus `/api`, for example
+   `https://YOUR-SERVICE.onrender.com/api`. Replace any old Railway value.
+6. Redeploy Vercel after updating the variable. Vite includes this value in the
+   frontend at build time, so changing the variable alone does not update the
+   existing deployment. Never put `OPENAI_API_KEY` in a `VITE_` variable.
 
 ---
 
@@ -324,7 +353,7 @@ If you found this project useful, please consider giving it a ⭐ on GitHub!
 - [React](https://reactjs.org) for the frontend UI
 - [Tailwind CSS](https://tailwindcss.com) for the styling
 - [Pinecone](https://www.pinecone.io) for the vector database
-- [Railway](https://railway.app) for backend hosting
+- [Render](https://render.com) for backend hosting
 - [Vercel](https://vercel.com) for frontend hosting
 
 ---

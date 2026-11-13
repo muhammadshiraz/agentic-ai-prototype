@@ -19,6 +19,17 @@ class ChatTests(unittest.TestCase):
         mcp_server._memory.clear()
 
     @patch("app.openai.ChatCompletion.create")
+    def test_missing_key_keeps_health_online_and_chat_returns_503(self, create):
+        with patch("app.OPENAI_API_KEY", None):
+            health = self.client.get("/")
+            self.assertEqual(health.status_code, 200)
+            self.assertFalse(health.json()["openai_api_key_set"])
+            response = self.client.post("/api/chat", json={"message": "Hi"})
+        self.assertEqual(response.status_code, 503)
+        self.assertIn("API key is not configured", response.json()["detail"])
+        create.assert_not_called()
+
+    @patch("app.openai.ChatCompletion.create")
     def test_text_reply_uses_configured_model(self, create):
         create.return_value = {"choices": [{"message": {"content": "Hello"}}]}
         response = self.client.post("/api/chat", json={"message": "Hi"})
